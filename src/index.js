@@ -1,9 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
 import App from "./App";
 import "./index.css";
+import reducers from "./reducers";
 import * as serviceWorker from "./serviceWorker";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+const store = createStore(reducers);
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -15,9 +19,11 @@ const theme = createMuiTheme({
   }
 });
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <App />
-  </MuiThemeProvider>,
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
+  </Provider>,
   document.getElementById("root")
 );
 
