@@ -14,22 +14,6 @@ import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListIcon from "@material-ui/icons/List";
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel"
-];
 
 class ConfirmationDialogRaw extends React.Component {
   constructor(props) {
@@ -136,6 +120,7 @@ class ConfirmationDialog extends React.Component {
   };
 
   handleClose = value => {
+    this.props.setList(value);
     this.setState({ value, open: false });
   };
 

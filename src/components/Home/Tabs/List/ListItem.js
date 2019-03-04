@@ -38,7 +38,7 @@ class Todo extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, taskName, completed } = this.props;
 
     return (
       <ListItem role={undefined} dense button onClick={this.handleToggle()}>
@@ -49,7 +49,7 @@ class Todo extends React.Component {
           color="primary"
         />
         <ListItemText
-          primary={<strike>Line item</strike>}
+          primary={completed ? <strike>{taskName}</strike> : taskName}
           secondary="Completed today 3:02am"
         />
         <ListItemSecondaryAction>

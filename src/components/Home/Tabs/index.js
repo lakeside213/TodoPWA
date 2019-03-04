@@ -10,8 +10,8 @@ import Fab from "@material-ui/core/Fab";
 import Create from "@material-ui/icons/Create";
 import List from "./List";
 import { withRouter } from "react-router-dom";
-function TabContainer({ children, dir }) {
-  return <List dir={dir} />;
+function TabContainer({ dir, todos }) {
+  return <List dir={dir} todos={todos} />;
 }
 
 TabContainer.propTypes = {
@@ -37,8 +37,11 @@ class FullWidthTabs extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = value => {
+  handleChange = (event, value) => {
     this.props.changeTab(value);
+  };
+  handleChangeIndex = index => {
+    this.props.changeTab(index);
   };
 
   render() {
@@ -57,18 +60,23 @@ class FullWidthTabs extends React.Component {
         <AppBar position="static">
           <Tabs value={selectedTabIndex} onChange={this.handleChange}>
             {lists.map((listName, index) => (
-              <Tab label={listName} key={index} />
+              <Tab label={listName} key={index} value={index} />
             ))}
           </Tabs>
         </AppBar>
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={selectedTabIndex}
-          onChangeIndex={this.handleChange}
+          onChangeIndex={this.handleChangeIndex}
         >
-          <TabContainer dir={theme.direction}>Item One</TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          {lists.map((listName, index) => (
+            <TabContainer
+              dir={theme.direction}
+              todos={todos.filter(function(todo) {
+                return todo.list === listName;
+              })}
+            />
+          ))}
         </SwipeableViews>
 
         <Fab

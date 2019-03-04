@@ -34,11 +34,17 @@ class TodoLists extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, todos } = this.props;
 
     return (
       <List className={classes.root}>
-        <ListItem />
+        {todos.map((todo, index) => (
+          <ListItem
+            taskName={todo.taskName}
+            completed={todo.completed}
+            id={index}
+          />
+        ))}
       </List>
     );
   }

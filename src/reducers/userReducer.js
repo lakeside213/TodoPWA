@@ -20,12 +20,14 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         todos: [
+          ...state.todos,
           {
-            taskName: action.payload.taskName,
-            dueDate: action.payload.dueDate,
-            list: action.payload.list,
-            notes: action.payload.notes,
-            completed: false
+            taskName: action.taskName,
+            dueDate: action.dueDate,
+            list: action.list,
+            notes: action.notes,
+            completed: false,
+            completedAt: ""
           }
         ]
       };

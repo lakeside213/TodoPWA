@@ -1,10 +1,11 @@
 import { CREATE_TODO, FETCH_USER, CREATE_LIST } from "../consts/types";
 
-export const addTodo = (taskName, notes, dueDate) => ({
+export const createTodo = (taskName, notes, dueDate, list) => ({
   type: CREATE_TODO,
   taskName,
   notes,
-  dueDate
+  dueDate,
+  list
 });
 export const createList = name => ({
   type: CREATE_LIST,

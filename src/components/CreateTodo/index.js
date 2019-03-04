@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
+import { createTodo } from "../../actions";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
@@ -41,9 +42,31 @@ function Transition(props) {
 
 class CreateTodo extends React.Component {
   state = {
-    open: false
+    open: false,
+    taskName: "",
+    date: "",
+    desc: "",
+    list: ""
   };
+  handleChange = event => {
+    console.log(event);
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
+    this.setState({
+      [name]: value
+    });
+  };
+  setList = listName => {
+    this.setState({
+      list: listName
+    });
+  };
+  handleSubmit = () => {
+    const { taskName, date, desc, list } = this.state;
+    this.props.createTodo(taskName, desc, date, list);
+  };
   render() {
     const { classes, history, lists } = this.props;
     return (
@@ -72,6 +95,7 @@ class CreateTodo extends React.Component {
             <Button
               color="inherit"
               onClick={() => {
+                this.handleSubmit();
                 history.push("/");
               }}
             >
@@ -91,6 +115,9 @@ class CreateTodo extends React.Component {
                 <TextField
                   id="standard-with-placeholder"
                   placeholder="Task Name"
+                  value={this.state.taskName}
+                  name="taskName"
+                  onChange={this.handleChange}
                 />
               }
             />
@@ -105,11 +132,13 @@ class CreateTodo extends React.Component {
               secondary={
                 <TextField
                   id="datetime-local"
-                  type="datetime-local"
-                  defaultValue="2017-05-24T10:30"
+                  type="date"
                   InputLabelProps={{
                     shrink: true
                   }}
+                  name="date"
+                  value={this.state.date}
+                  onChange={this.handleChange}
                 />
               }
             />
@@ -128,12 +157,15 @@ class CreateTodo extends React.Component {
                   inputProps={{
                     "aria-label": "Description"
                   }}
+                  name="desc"
+                  value={this.state.desc}
+                  onChange={this.handleChange}
                 />
               }
             />
             <Divider />
           </ListItem>
-          <ListPicker lists={lists} />
+          <ListPicker lists={lists} setList={this.setList} />
         </List>
       </div>
     );
@@ -146,6 +178,7 @@ CreateTodo.propTypes = {
 function mapStateToProps(state) {
   return { lists: state.user.lists };
 }
-export default connect(mapStateToProps)(
-  withRouter(withStyles(styles)(CreateTodo))
-);
+export default connect(
+  mapStateToProps,
+  { createTodo }
+)(withRouter(withStyles(styles)(CreateTodo)));
