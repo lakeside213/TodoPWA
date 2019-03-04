@@ -45,7 +45,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { classes, drawerToggler } = this.props;
+    const { classes, drawerToggler, selectedList } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -62,7 +62,7 @@ class Header extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Todos
+              {selectedList}
             </Typography>
 
             <div>

@@ -63,7 +63,7 @@ class ConfirmationDialogRaw extends React.Component {
   };
 
   render() {
-    const { value, ...other } = this.props;
+    const { value, lists, ...other } = this.props;
 
     return (
       <Dialog
@@ -85,12 +85,12 @@ class ConfirmationDialogRaw extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}
           >
-            {options.map(option => (
+            {lists.map(list => (
               <FormControlLabel
-                value={option}
-                key={option}
+                value={list}
+                key={list}
                 control={<Radio color="primary" />}
-                label={option}
+                label={list}
               />
             ))}
           </RadioGroup>
@@ -128,7 +128,7 @@ const styles = theme => ({
 class ConfirmationDialog extends React.Component {
   state = {
     open: false,
-    value: "Dione"
+    value: ""
   };
 
   handleClickListItem = () => {
@@ -140,7 +140,7 @@ class ConfirmationDialog extends React.Component {
   };
 
   render() {
-    let { classes } = this.props;
+    let { classes, lists } = this.props;
     return (
       <Fragment>
         <ListItem
@@ -164,6 +164,7 @@ class ConfirmationDialog extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}
           value={this.state.value}
+          lists={lists}
         />
       </Fragment>
     );

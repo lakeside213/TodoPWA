@@ -22,6 +22,7 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
+
   render() {
     let { isDrawerOpen } = this.state;
     return (

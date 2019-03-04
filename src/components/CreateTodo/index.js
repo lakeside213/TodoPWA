@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
+import { connect } from "react-redux";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
@@ -45,7 +45,7 @@ class CreateTodo extends React.Component {
   };
 
   render() {
-    const { classes, history } = this.props;
+    const { classes, history, lists } = this.props;
     return (
       <div>
         <AppBar className={classes.appBar}>
@@ -133,7 +133,7 @@ class CreateTodo extends React.Component {
             />
             <Divider />
           </ListItem>
-          <ListPicker />
+          <ListPicker lists={lists} />
         </List>
       </div>
     );
@@ -143,5 +143,9 @@ class CreateTodo extends React.Component {
 CreateTodo.propTypes = {
   classes: PropTypes.object.isRequired
 };
-
-export default withRouter(withStyles(styles)(CreateTodo));
+function mapStateToProps(state) {
+  return { lists: state.user.lists };
+}
+export default connect(mapStateToProps)(
+  withRouter(withStyles(styles)(CreateTodo))
+);

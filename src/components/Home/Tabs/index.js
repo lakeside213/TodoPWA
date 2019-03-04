@@ -31,34 +31,40 @@ const styles = theme => ({
 });
 
 class FullWidthTabs extends React.Component {
-  state = {
-    value: 0
-  };
+  constructor(props) {
+    super();
+
+    this.handleChange = this.handleChange.bind(this);
+  }
 
   handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
+    this.props.changeTab(event, value);
   };
 
   render() {
-    const { classes, theme, history } = this.props;
+    const {
+      classes,
+      theme,
+      history,
+      todos,
+      lists,
+      dialogToggler,
+      selectedTabIndex
+    } = this.props;
 
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Tabs value={this.state.value} onChange={this.handleChange}>
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
+          <Tabs value={selectedTabIndex} onChange={this.handleChange}>
+            {lists.map((listName, index) => (
+              <Tab label={listName} key={index} />
+            ))}
           </Tabs>
         </AppBar>
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
+          index={selectedTabIndex}
+          onChangeIndex={this.handleChange}
         >
           <TabContainer dir={theme.direction}>Item One</TabContainer>
           <TabContainer dir={theme.direction}>Item Two</TabContainer>
@@ -69,7 +75,11 @@ class FullWidthTabs extends React.Component {
           className={classes.fab}
           color="primary"
           onClick={() => {
-            history.push("/create");
+            if (lists.length) {
+              history.push("/create");
+            } else {
+              dialogToggler();
+            }
           }}
         >
           <Create />

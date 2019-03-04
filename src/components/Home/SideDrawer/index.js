@@ -34,7 +34,13 @@ const SideList = props => {
       <List>
         {props.lists.length > 0 ? (
           props.lists.map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem
+              button
+              key={text}
+              onClick={event => {
+                props.changeTab(event, index);
+              }}
+            >
               <ListItemText primary={text} />
             </ListItem>
           ))
@@ -56,6 +62,12 @@ const SideList = props => {
           </ListItemIcon>
           <ListItemText primary="Manage Lists" />
         </ListItem>
+        <ListItem onClick={props.dialogToggler}>
+          <ListItemIcon>
+            <Add />
+          </ListItemIcon>
+          <ListItemText primary="Create a New List" />
+        </ListItem>
         <ListItem>
           <ListItemIcon>
             <Settings />
@@ -73,7 +85,8 @@ class Drawer extends React.Component {
       isDrawerOpen,
       drawerToggler,
       lists,
-      dialogToggler
+      dialogToggler,
+      changeTab
     } = this.props;
 
     return (
@@ -93,6 +106,7 @@ class Drawer extends React.Component {
               classes={classes}
               lists={lists}
               dialogToggler={dialogToggler}
+              changeTab={changeTab}
             />
           </div>
         </SwipeableDrawer>

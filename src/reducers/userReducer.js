@@ -15,7 +15,7 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state };
       break;
     case CREATE_LIST:
-      return { ...state, lists: [action.payload.name] };
+      return { ...state, lists: [...state.lists, action.name] };
     case CREATE_TODO:
       return {
         ...state,

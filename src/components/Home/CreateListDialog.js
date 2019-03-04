@@ -1,4 +1,6 @@
 import React, { Fragment, Component } from "react";
+import { connect } from "react-redux";
+import { createList } from "../../actions";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,6 +10,23 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 class CreateList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "" };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.createList(this.state.value);
+    this.setState({ value: "" });
+  }
   render() {
     const { dialogToggler, isDialogOpen } = this.props;
     return (
@@ -32,13 +51,21 @@ class CreateList extends Component {
               label="List name"
               type="text"
               fullWidth
+              value={this.state.value}
+              onChange={this.handleChange}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={dialogToggler} color="primary">
               Cancel
             </Button>
-            <Button onClick={dialogToggler} color="primary">
+            <Button
+              onClick={e => {
+                this.handleSubmit(e);
+                dialogToggler();
+              }}
+              color="primary"
+            >
               Create
             </Button>
           </DialogActions>
@@ -48,4 +75,7 @@ class CreateList extends Component {
   }
 }
 
-export default CreateList;
+export default connect(
+  null,
+  { createList }
+)(CreateList);
