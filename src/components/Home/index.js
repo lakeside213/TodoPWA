@@ -26,7 +26,6 @@ class Home extends Component {
     });
   };
   dialogToggler = () => {
-    alert("clicked");
     this.setState(prevState => {
       return { isDialogOpen: !prevState.isDialogOpen };
     });

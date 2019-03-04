@@ -1,9 +1,13 @@
 html {
-    overflow: hidden;
+  width: 100%;
+height: 100%;
+overflow: hidden;
+position: relative;
 }
 body {
   margin: 0;
   padding: 0;
-  overscroll-behavior-y: none;
-
+  overscroll-behavior-y: auto;
+width: 100%;
+-webkit-overflow-scrolling: touch;
 }
