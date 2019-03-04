@@ -37,8 +37,8 @@ const SideList = props => {
             <ListItem
               button
               key={text}
-              onClick={event => {
-                props.changeTab(event, index);
+              onClick={() => {
+                props.changeTab(index);
               }}
             >
               <ListItemText primary={text} />

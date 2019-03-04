@@ -33,7 +33,7 @@ class Home extends Component {
       this.setState({ selectedList: this.props.user.lists[0] });
     }
   }
-  changeTab = (event, value) => {
+  changeTab = value => {
     let lists = this.props.user.lists;
     this.setState({ selectedList: lists[value] });
     this.setState({ selectedTabIndex: value });
