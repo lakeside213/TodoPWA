@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { fetchUser } from "./actions";
 import Home from "./components/Home";
 import CreateTodo from "./components/CreateTodo";
 import {
@@ -17,6 +19,9 @@ class App extends Component {
       return { isDrawerOpen: !prevState.isDrawerOpen };
     });
   };
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   render() {
     let { isDrawerOpen } = this.state;
     return (
@@ -30,4 +35,11 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps({ user }) {
+  return { user };
+}
+
+export default connect(
+  mapStateToProps,
+  { fetchUser }
+)(App);

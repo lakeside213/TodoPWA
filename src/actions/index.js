@@ -1,4 +1,4 @@
-import { CREATE_TODO } from "../consts/types";
+import { CREATE_TODO, FETCH_USER } from "../consts/types";
 
 export const addTodo = (taskName, notes, dueDate, text) => ({
   type: CREATE_TODO,
@@ -6,4 +6,7 @@ export const addTodo = (taskName, notes, dueDate, text) => ({
   notes,
   dueDate,
   text
+});
+export const fetchUser = () => ({
+  type: FETCH_USER
 });

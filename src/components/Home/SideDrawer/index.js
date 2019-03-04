@@ -10,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Settings from "@material-ui/icons/Settings";
 import Edit from "@material-ui/icons/Edit";
+import Add from "@material-ui/icons/Add";
 
 const styles = {
   list: {
@@ -23,49 +24,57 @@ const styles = {
   }
 };
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-class Drawer extends React.Component {
-  render() {
-    const { classes, isDrawerOpen, drawerToggler } = this.props;
-
-    const sideList = (
-      <div className={classes.list}>
-        <ListItem>
-          <ListItemText primary="Todos" secondary="Your lists" />
-        </ListItem>
-        <Divider />
-        <List>
-          {[
-            "Inbox",
-            "Starred",
-            "Send email",
-            "Drafts",
-            "Drafts",
-            "Drafts",
-            "Drafts"
-          ].map((text, index) => (
+const SideList = props => {
+  return (
+    <div className={props.classes.list}>
+      <ListItem>
+        <ListItemText primary="Todos" secondary="Your lists" />
+      </ListItem>
+      <Divider />
+      <List>
+        {props.lists.length > 0 ? (
+          props.lists.map((text, index) => (
             <ListItem button key={text}>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
-        </List>
-        <Divider />
+          ))
+        ) : (
+          <ListItem onClick={props.dialogToggler}>
+            <ListItemIcon>
+              <Add />
+            </ListItemIcon>
+            <ListItemText primary="Create a New List" />
+          </ListItem>
+        )}
+      </List>
+      <Divider />
 
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <Edit />
-            </ListItemIcon>
-            <ListItemText primary="Manage Lists" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Settings />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
-        </List>
-      </div>
-    );
+      <List>
+        <ListItem>
+          <ListItemIcon>
+            <Edit />
+          </ListItemIcon>
+          <ListItemText primary="Manage Lists" />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <Settings />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
+      </List>
+    </div>
+  );
+};
+class Drawer extends React.Component {
+  render() {
+    const {
+      classes,
+      isDrawerOpen,
+      drawerToggler,
+      lists,
+      dialogToggler
+    } = this.props;
 
     return (
       <div>
@@ -80,7 +89,11 @@ class Drawer extends React.Component {
             onClick={drawerToggler}
             onKeyDown={drawerToggler}
           >
-            {sideList}
+            <SideList
+              classes={classes}
+              lists={lists}
+              dialogToggler={dialogToggler}
+            />
           </div>
         </SwipeableDrawer>
       </div>
