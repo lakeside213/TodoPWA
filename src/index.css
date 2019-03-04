@@ -2,8 +2,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-y: scroll;
-  overscroll-behavior-y: none;
-  /* overscroll-behavior: contain; */
+  /* overscroll-behavior-y: none; */
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 
 }

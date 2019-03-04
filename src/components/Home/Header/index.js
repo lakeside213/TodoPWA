@@ -12,7 +12,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import Tabs from "../Tabs";
+
 const styles = {
   root: {
     flexGrow: 1
@@ -94,7 +94,6 @@ class Header extends React.Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Tabs />
       </div>
     );
   }

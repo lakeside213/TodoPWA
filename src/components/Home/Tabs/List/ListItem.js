@@ -49,7 +49,7 @@ class Todo extends React.Component {
           color="primary"
         />
         <ListItemText
-          primary={<strike>`Line item `</strike>}
+          primary={<strike>Line item</strike>}
           secondary="Completed today 3:02am"
         />
         <ListItemSecondaryAction>

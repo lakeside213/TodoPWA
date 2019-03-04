@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import Header from "./components/Header";
-import SideDrawer from "./components/SideDrawer";
+import Home from "./components/Home";
+import CreateTodo from "./components/CreateTodo";
 import {
   BrowserRouter as Router,
   Route,
@@ -22,11 +22,8 @@ class App extends Component {
     return (
       <Router>
         <Fragment>
-          <Header drawerToggler={this.drawerToggler} />
-          <SideDrawer
-            isDrawerOpen={isDrawerOpen}
-            drawerToggler={this.drawerToggler}
-          />
+          <Route path="/create" component={CreateTodo} />
+          <Route exact path="/" component={Home} />
         </Fragment>
       </Router>
     );

@@ -7,10 +7,11 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import Create from "@material-ui/icons/Create";
 import List from "./List";
+import { withRouter } from "react-router-dom";
 function TabContainer({ children, dir }) {
-  return <List />;
+  return <List dir={dir} />;
 }
 
 TabContainer.propTypes = {
@@ -43,7 +44,7 @@ class FullWidthTabs extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, history } = this.props;
 
     return (
       <div className={classes.root}>
@@ -63,8 +64,15 @@ class FullWidthTabs extends React.Component {
           <TabContainer dir={theme.direction}>Item Two</TabContainer>
           <TabContainer dir={theme.direction}>Item Three</TabContainer>
         </SwipeableViews>
-        <Fab className={classes.fab} color="primary">
-          <AddIcon />
+
+        <Fab
+          className={classes.fab}
+          color="primary"
+          onClick={() => {
+            history.push("/create");
+          }}
+        >
+          <Create />
         </Fab>
       </div>
     );
@@ -76,4 +84,6 @@ FullWidthTabs.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(FullWidthTabs);
+export default withRouter(
+  withStyles(styles, { withTheme: true })(FullWidthTabs)
+);
