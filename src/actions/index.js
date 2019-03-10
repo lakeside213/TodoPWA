@@ -2,7 +2,8 @@ import {
   CREATE_TODO,
   FETCH_USER,
   CREATE_LIST,
-  TOGGLE_TODO
+  TOGGLE_TODO,
+  DELETE_TODO
 } from "../consts/types";
 
 export const createTodo = (taskName, notes, dueDate, list) => ({
@@ -21,5 +22,9 @@ export const fetchUser = () => ({
 });
 export const toggleTodo = id => ({
   type: TOGGLE_TODO,
+  id
+});
+export const deleteTodo = id => ({
+  type: DELETE_TODO,
   id
 });

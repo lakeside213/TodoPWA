@@ -4,13 +4,13 @@ import Moment from "react-moment";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import { toggleTodo } from "../../../../actions";
+import { toggleTodo, deleteTodo } from "../../../../actions";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
-import DragIndicator from "@material-ui/icons/DragIndicator";
+import Delete from "@material-ui/icons/Delete";
 
 const styles = theme => ({
   root: {
@@ -20,25 +20,11 @@ const styles = theme => ({
 });
 
 class Todo extends React.Component {
-  state = {
-    checked: [0]
-  };
-
   handleToggle = id => {
-    // const { checked } = this.state;
-    // const currentIndex = checked.indexOf(value);
-    // const newChecked = [...checked];
-    //
-    // if (currentIndex === -1) {
-    //   newChecked.push(value);
-    // } else {
-    //   newChecked.splice(currentIndex, 1);
-    // }
-    //
-    // this.setState({
-    //   checked: newChecked
-    // });
     this.props.toggleTodo(id);
+  };
+  handleDelete = id => {
+    this.props.deleteTodo(id);
   };
   getTime = completedAt => {
     return Moment(completedAt).calendar();
@@ -75,8 +61,13 @@ class Todo extends React.Component {
           }
         />
         <ListItemSecondaryAction>
-          <IconButton aria-label="Comments">
-            <DragIndicator />
+          <IconButton
+            aria-label="Delete"
+            onClick={() => {
+              this.handleDelete(id);
+            }}
+          >
+            <Delete />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
@@ -90,5 +81,5 @@ Todo.propTypes = {
 
 export default connect(
   null,
-  { toggleTodo }
+  { toggleTodo, deleteTodo }
 )(withStyles(styles)(Todo));

@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import ListItem from "./ListItem";
 
 const styles = theme => ({
@@ -13,29 +15,18 @@ const styles = theme => ({
 });
 
 class TodoLists extends React.Component {
-  state = {
-    checked: [0]
-  };
-
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked
-    });
-  };
-
   render() {
     const { classes, todos } = this.props;
 
+    if (todos.length < 1) {
+      return (
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Typography variant="h5" gutterBottom>
+            Add Items to this list **EDIT
+          </Typography>
+        </Grid>
+      );
+    }
     return (
       <List className={classes.root}>
         {todos.map((todo, index) => (
