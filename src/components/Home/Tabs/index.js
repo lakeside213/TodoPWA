@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import Create from "@material-ui/icons/Create";
 import List from "./List";
+import EmptyState from "../../emptyState";
 import { withRouter } from "react-router-dom";
 function TabContainer({ dir, todos }) {
   return <List dir={dir} todos={todos} />;
@@ -65,34 +66,44 @@ class FullWidthTabs extends React.Component {
             ))}
           </Tabs>
         </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={selectedTabIndex}
-          onChangeIndex={this.handleChangeIndex}
-        >
-          {lists.map((listName, index) => (
-            <TabContainer
-              dir={theme.direction}
-              todos={todos.filter(function(todo) {
-                return todo.list === listName;
-              })}
-            />
-          ))}
-        </SwipeableViews>
-
-        <Fab
-          className={classes.fab}
-          color="primary"
-          onClick={() => {
-            if (lists.length) {
-              history.push("/create");
-            } else {
-              dialogToggler();
-            }
-          }}
-        >
-          <Create />
-        </Fab>
+        <div style={{ background: "#fafafa", height: "100vh" }}>
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={selectedTabIndex}
+            onChangeIndex={this.handleChangeIndex}
+          >
+            {lists.length > 0 ? (
+              lists.map((listName, index) => (
+                <TabContainer
+                  dir={theme.direction}
+                  todos={todos.filter(function(todo) {
+                    return todo.list === listName;
+                  })}
+                />
+              ))
+            ) : (
+              <EmptyState
+                title="Create a list to get started"
+                info="You currently have no lists create a list to get started"
+                methodName="Create list"
+                method={dialogToggler}
+              />
+            )}
+          </SwipeableViews>
+          <Fab
+            className={classes.fab}
+            color="primary"
+            onClick={() => {
+              if (lists.length) {
+                history.push("/create");
+              } else {
+                dialogToggler();
+              }
+            }}
+          >
+            <Create />
+          </Fab>
+        </div>
       </div>
     );
   }
