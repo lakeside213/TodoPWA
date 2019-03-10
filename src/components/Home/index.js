@@ -24,6 +24,9 @@ class Home extends Component {
       selectedTabIndex: 0
     };
   }
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (
@@ -103,4 +106,7 @@ function mapStateToProps({ user }) {
   return { user };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Home));
+export default connect(
+  mapStateToProps,
+  { fetchUser }
+)(withStyles(styles)(Home));

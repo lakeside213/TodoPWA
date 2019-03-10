@@ -42,7 +42,8 @@ class TodoLists extends React.Component {
           <ListItem
             taskName={todo.taskName}
             completed={todo.completed}
-            id={index}
+            completedAt={todo.completedAt}
+            id={todo.id}
           />
         ))}
       </List>

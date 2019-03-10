@@ -1,7 +1,10 @@
 import React from "react";
+import Moment from "react-moment";
+
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-
+import { connect } from "react-redux";
+import { toggleTodo } from "../../../../actions";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -21,36 +24,55 @@ class Todo extends React.Component {
     checked: [0]
   };
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked
-    });
+  handleToggle = id => {
+    // const { checked } = this.state;
+    // const currentIndex = checked.indexOf(value);
+    // const newChecked = [...checked];
+    //
+    // if (currentIndex === -1) {
+    //   newChecked.push(value);
+    // } else {
+    //   newChecked.splice(currentIndex, 1);
+    // }
+    //
+    // this.setState({
+    //   checked: newChecked
+    // });
+    this.props.toggleTodo(id);
+  };
+  getTime = completedAt => {
+    return Moment(completedAt).calendar();
   };
 
   render() {
-    const { classes, taskName, completed } = this.props;
+    const { classes, taskName, completed, completedAt, id } = this.props;
 
     return (
-      <ListItem role={undefined} dense button onClick={this.handleToggle()}>
+      <ListItem role={undefined} dense button>
         <Checkbox
-          checked={this.state.checked.indexOf() !== -1}
+          checked={completed}
           tabIndex={-1}
           disableRipple
           color="primary"
+          onClick={() => {
+            this.handleToggle(id);
+          }}
         />
         <ListItemText
           primary={completed ? <strike>{taskName}</strike> : taskName}
-          secondary="Completed today 3:02am"
+          secondary={
+            completed ? (
+              <Moment
+                filter={d => {
+                  return "completed " + d;
+                }}
+                date={completedAt}
+                fromNow
+              />
+            ) : (
+              ""
+            )
+          }
         />
         <ListItemSecondaryAction>
           <IconButton aria-label="Comments">
@@ -66,4 +88,7 @@ Todo.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Todo);
+export default connect(
+  null,
+  { toggleTodo }
+)(withStyles(styles)(Todo));
