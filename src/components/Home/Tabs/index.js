@@ -90,20 +90,20 @@ class FullWidthTabs extends React.Component {
               />
             )}
           </SwipeableViews>
-          <Fab
-            className={classes.fab}
-            color="primary"
-            onClick={() => {
-              if (lists.length) {
-                history.push("/create");
-              } else {
-                dialogToggler();
-              }
-            }}
-          >
-            <Create />
-          </Fab>
         </div>
+        <Fab
+          className={classes.fab}
+          color="primary"
+          onClick={() => {
+            if (lists.length) {
+              history.push("/create");
+            } else {
+              dialogToggler();
+            }
+          }}
+        >
+          <Create />
+        </Fab>
       </div>
     );
   }
