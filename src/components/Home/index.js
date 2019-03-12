@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Header from "./Header";
 import Tabs from "./Tabs";
 import CreateList from "./CreateListDialog";
+import CreateTodo from "../CreateTodo";
 import SideDrawer from "./SideDrawer";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -20,6 +21,7 @@ class Home extends Component {
     this.state = {
       isDrawerOpen: false,
       isDialogOpen: false,
+      isCreateTodoOpen: false,
       selectedList: "Todos",
       selectedTabIndex: 0
     };
@@ -52,15 +54,20 @@ class Home extends Component {
       return { isDialogOpen: !prevState.isDialogOpen };
     });
   };
+  createTodoToggler = () => {
+    this.setState(prevState => {
+      return { isCreateTodoOpen: !prevState.isCreateTodoOpen };
+    });
+  };
 
   render() {
     let {
       isDrawerOpen,
       isDialogOpen,
       selectedList,
-      selectedTabIndex
+      selectedTabIndex,
+      isCreateTodoOpen
     } = this.state;
-    console.log(this.props);
     let { user, classes } = this.props;
     let { lists, todos } = user;
 
@@ -88,14 +95,21 @@ class Home extends Component {
 
         <Tabs
           dialogToggler={this.dialogToggler}
+          createToggler={this.createTodoToggler}
           lists={lists}
           todos={todos}
           selectedTabIndex={selectedTabIndex}
           changeTab={this.changeTab}
+          selectedList={selectedList}
         />
         <CreateList
           dialogToggler={this.dialogToggler}
           isDialogOpen={isDialogOpen}
+        />
+        <CreateTodo
+          dialogToggler={this.createTodoToggler}
+          isDialogOpen={isCreateTodoOpen}
+          selectedList={selectedList}
         />
       </div>
     );

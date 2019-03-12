@@ -19,7 +19,7 @@ class ConfirmationDialogRaw extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      value: props.value
+      value: props.selectedList || props.value
     };
   }
 
@@ -112,7 +112,7 @@ const styles = theme => ({
 class ConfirmationDialog extends React.Component {
   state = {
     open: false,
-    value: ""
+    value: this.props.selectedList || ""
   };
 
   handleClickListItem = () => {
@@ -125,7 +125,7 @@ class ConfirmationDialog extends React.Component {
   };
 
   render() {
-    let { classes, lists } = this.props;
+    let { classes, lists, selectedList } = this.props;
     return (
       <Fragment>
         <ListItem
@@ -150,6 +150,7 @@ class ConfirmationDialog extends React.Component {
           onClose={this.handleClose}
           value={this.state.value}
           lists={lists}
+          selectedList={selectedList}
         />
       </Fragment>
     );

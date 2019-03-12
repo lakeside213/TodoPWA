@@ -50,11 +50,12 @@ class FullWidthTabs extends React.Component {
     const {
       classes,
       theme,
-      history,
+      createToggler,
       todos,
       lists,
       dialogToggler,
-      selectedTabIndex
+      selectedTabIndex,
+      selectedList
     } = this.props;
 
     return (
@@ -66,7 +67,7 @@ class FullWidthTabs extends React.Component {
             ))}
           </Tabs>
         </AppBar>
-        <div >
+        <div>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={selectedTabIndex}
@@ -96,7 +97,7 @@ class FullWidthTabs extends React.Component {
           color="primary"
           onClick={() => {
             if (lists.length) {
-              history.push("/create");
+              createToggler();
             } else {
               dialogToggler();
             }

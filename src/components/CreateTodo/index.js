@@ -23,6 +23,7 @@ import Create from "@material-ui/icons/Create";
 import Slide from "@material-ui/core/Slide";
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
+import Dialog from "@material-ui/core/Dialog";
 const styles = theme => ({
   appBar: {
     position: "relative"
@@ -41,15 +42,18 @@ function Transition(props) {
 }
 
 class CreateTodo extends React.Component {
-  state = {
-    open: false,
-    taskName: "",
-    date: "",
-    desc: "",
-    list: ""
-  };
+  constructor(props) {
+    super();
+    this.state = {
+      open: false,
+      taskName: "",
+      date: "",
+      desc: "",
+      list: props.selectedList || ""
+    };
+  }
+
   handleChange = event => {
-    console.log(event);
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -68,16 +72,27 @@ class CreateTodo extends React.Component {
     this.props.createTodo(taskName, desc, date, list);
   };
   render() {
-    const { classes, history, lists } = this.props;
+    const {
+      classes,
+      dialogToggler,
+      lists,
+      isDialogOpen,
+      selectedList
+    } = this.props;
     return (
-      <div>
+      <Dialog
+        fullScreen
+        open={isDialogOpen}
+        onClose={dialogToggler}
+        TransitionComponent={Transition}
+      >
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="Close"
               onClick={() => {
-                history.push("/");
+                dialogToggler();
               }}
             >
               <KeyboardBackspace />
@@ -87,7 +102,7 @@ class CreateTodo extends React.Component {
               color="inherit"
               className={classes.flex}
               onClick={() => {
-                history.push("/");
+                dialogToggler();
               }}
             >
               Back
@@ -96,7 +111,7 @@ class CreateTodo extends React.Component {
               color="inherit"
               onClick={() => {
                 this.handleSubmit();
-                history.push("/");
+                dialogToggler();
               }}
             >
               save
@@ -165,9 +180,13 @@ class CreateTodo extends React.Component {
             />
             <Divider />
           </ListItem>
-          <ListPicker lists={lists} setList={this.setList} />
+          <ListPicker
+            lists={lists}
+            setList={this.setList}
+            selectedList={selectedList}
+          />
         </List>
-      </div>
+      </Dialog>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
@@ -7,11 +7,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "./ListItem";
 import EmptyState from "../../../emptyState";
+import Divider from "@material-ui/core/Divider";
 const styles = theme => ({
   root: {
-    width: "100%",
-
-
+    width: "100%"
   }
 });
 
@@ -34,12 +33,16 @@ class TodoLists extends React.Component {
     return (
       <List className={classes.root}>
         {todos.map((todo, index) => (
-          <ListItem
-            taskName={todo.taskName}
-            completed={todo.completed}
-            completedAt={todo.completedAt}
-            id={todo.id}
-          />
+          <Fragment>
+            <ListItem
+              taskName={todo.taskName}
+              completed={todo.completed}
+              completedAt={todo.completedAt}
+              id={todo.id}
+            />
+
+            <Divider />
+          </Fragment>
         ))}
       </List>
     );

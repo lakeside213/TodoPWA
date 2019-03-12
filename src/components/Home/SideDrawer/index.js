@@ -93,8 +93,8 @@ class Drawer extends React.Component {
       <div>
         <SwipeableDrawer
           open={isDrawerOpen}
-          disableBackdropTransition={!iOS}
-          disableDiscovery={iOS}
+          onClose={drawerToggler}
+          onOpen={drawerToggler}
         >
           <div
             tabIndex={0}
