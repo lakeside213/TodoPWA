@@ -21,6 +21,7 @@ const styles = theme => ({
 class Todo extends React.Component {
   handleToggle = id => {
     this.props.toggleTodo(id);
+    window.navigator.vibrate(200);
   };
   handleDelete = id => {
     this.props.deleteTodo(id);
@@ -40,7 +41,6 @@ class Todo extends React.Component {
           disableRipple
           color="primary"
           onClick={() => {
-            window.navigator.vibrate(200);
             this.handleToggle(id);
           }}
         />
