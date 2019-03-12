@@ -36,6 +36,7 @@ class Home extends Component {
   }
   changeTab = value => {
     let lists = this.props.user.lists;
+    console.log(this.state);
     this.setState({ selectedList: lists[value] });
     this.setState({ selectedTabIndex: value });
   };

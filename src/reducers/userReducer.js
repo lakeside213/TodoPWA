@@ -17,6 +17,7 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, lists: [...state.lists, action.name] };
     case CREATE_TODO:
       let index = state.todos.length;
+      console.log(action);
       return {
         ...state,
         todos: [

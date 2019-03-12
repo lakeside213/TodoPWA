@@ -114,6 +114,10 @@ class ConfirmationDialog extends React.Component {
     value: this.props.selectedList || ""
   };
 
+  componentDidMount() {
+    const { setList, selectedList } = this.props;
+    setList(selectedList);
+  }
   handleClickListItem = () => {
     this.setState({ open: true });
   };

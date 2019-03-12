@@ -13,7 +13,7 @@ const styles = theme => ({
 
 class TodoLists extends React.Component {
   render() {
-    const { classes, todos, history } = this.props;
+    const { classes, todos, createToggler } = this.props;
 
     if (todos.length < 1) {
       return (
@@ -22,7 +22,7 @@ class TodoLists extends React.Component {
           info="You currently have no todos"
           methodName="Create Todo"
           method={() => {
-            history.push("/create");
+            createToggler();
           }}
         />
       );
@@ -36,6 +36,7 @@ class TodoLists extends React.Component {
               completed={todo.completed}
               completedAt={todo.completedAt}
               id={todo.id}
+              key={index}
             />
 
             <Divider />

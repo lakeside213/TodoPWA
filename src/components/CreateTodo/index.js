@@ -48,15 +48,20 @@ class CreateTodo extends React.Component {
       taskName: "",
       date: "",
       desc: "",
-      list: props.selectedList || ""
+      list: ""
     };
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedList !== prevProps.selectedList) {
+      this.setState({ selectedList: this.props.selectedList });
+    }
   }
 
   handleChange = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
+    console.log(this.state);
     this.setState({
       [name]: value
     });
@@ -68,6 +73,7 @@ class CreateTodo extends React.Component {
   };
   handleSubmit = () => {
     const { taskName, date, desc, list } = this.state;
+    alert(list);
     this.props.createTodo(taskName, desc, date, list);
   };
   render() {

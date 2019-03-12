@@ -10,12 +10,11 @@ import Create from "@material-ui/icons/Create";
 import List from "./List";
 import EmptyState from "../../emptyState";
 
-function TabContainer({ dir, todos }) {
-  return <List dir={dir} todos={todos} />;
+function TabContainer({ dir, todos, createToggler }) {
+  return <List dir={dir} todos={todos} createToggler={createToggler} />;
 }
 
 TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
   dir: PropTypes.string.isRequired
 };
 
@@ -77,6 +76,8 @@ class FullWidthTabs extends React.Component {
                   todos={todos.filter(function(todo) {
                     return todo.list === listName;
                   })}
+                  key={index}
+                  createToggler={createToggler}
                 />
               ))
             ) : (
