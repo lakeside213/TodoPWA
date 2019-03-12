@@ -73,7 +73,6 @@ class CreateTodo extends React.Component {
   };
   handleSubmit = () => {
     const { taskName, date, desc, list } = this.state;
-    alert(list);
     this.props.createTodo(taskName, desc, date, list);
   };
   render() {
