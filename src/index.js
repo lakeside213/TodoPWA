@@ -18,6 +18,10 @@ const theme = createMuiTheme({
     }
   }
 });
+input.onfocus = function() {
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
+};
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
