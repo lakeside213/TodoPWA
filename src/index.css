@@ -3,7 +3,7 @@ html {
 height: 100%;
 overflow: hidden;
 position: relative;
-
+background: "#fafafa"
 }
 body {
   margin: 0;
@@ -11,5 +11,5 @@ body {
   overscroll-behavior-y: auto;
 width: 100%;
 -webkit-overflow-scrolling: touch;
-
+background: "#fafafa"
 }
