@@ -5,13 +5,11 @@ import SwipeableViews from "react-swipeable-views";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import Create from "@material-ui/icons/Create";
 import List from "./List";
 import EmptyState from "../../emptyState";
-import { withRouter } from "react-router-dom";
+
 function TabContainer({ dir, todos }) {
   return <List dir={dir} todos={todos} />;
 }
@@ -54,8 +52,7 @@ class FullWidthTabs extends React.Component {
       todos,
       lists,
       dialogToggler,
-      selectedTabIndex,
-      selectedList
+      selectedTabIndex
     } = this.props;
 
     return (
@@ -115,6 +112,4 @@ FullWidthTabs.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withRouter(
-  withStyles(styles, { withTheme: true })(FullWidthTabs)
-);
+export default withStyles(styles, { withTheme: true })(FullWidthTabs);

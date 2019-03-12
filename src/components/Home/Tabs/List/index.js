@@ -1,10 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
 import List from "@material-ui/core/List";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import ListItem from "./ListItem";
 import EmptyState from "../../../emptyState";
 import Divider from "@material-ui/core/Divider";
@@ -53,4 +50,4 @@ TodoLists.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(TodoLists));
+export default withStyles(styles)(TodoLists);

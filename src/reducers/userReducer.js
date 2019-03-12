@@ -13,7 +13,6 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_USER:
       return { ...state };
-      break;
     case CREATE_LIST:
       return { ...state, lists: [...state.lists, action.name] };
     case CREATE_TODO:
@@ -45,7 +44,7 @@ export default function(state = INITIAL_STATE, action) {
           ...todosCopy.slice(indexTodelete + 1)
         ]
       };
-      break;
+
     case TOGGLE_TODO:
       const todos = [...state.todos];
       const indexTodo = todos.findIndex(function(todo) {

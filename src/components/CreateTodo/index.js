@@ -1,6 +1,6 @@
 import React from "react";
 import ListPicker from "./ListPicker";
-import { withRouter } from "react-router-dom";
+
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -15,7 +15,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspace from "@material-ui/icons/KeyboardBackspace";
 import Alarm from "@material-ui/icons/Alarm";
 import Notes from "@material-ui/icons/Notes";
@@ -200,4 +199,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { createTodo }
-)(withRouter(withStyles(styles)(CreateTodo)));
+)(withStyles(styles)(CreateTodo));

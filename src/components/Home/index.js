@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { fetchUser } from "../../actions";
 import { withStyles } from "@material-ui/core/styles";
 import Header from "./Header";
 import Tabs from "./Tabs";
@@ -26,9 +24,7 @@ class Home extends Component {
       selectedTabIndex: 0
     };
   }
-  componentDidMount() {
-    this.props.fetchUser();
-  }
+
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (
@@ -116,11 +112,4 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps({ user }) {
-  return { user };
-}
-
-export default connect(
-  mapStateToProps,
-  { fetchUser }
-)(withStyles(styles)(Home));
+export default withStyles(styles)(Home);

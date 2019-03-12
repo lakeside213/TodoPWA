@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -95,6 +94,8 @@ class Drawer extends React.Component {
           open={isDrawerOpen}
           onClose={drawerToggler}
           onOpen={drawerToggler}
+          disableBackdropTransition={!iOS}
+          disableDiscovery={iOS}
         >
           <div
             tabIndex={0}

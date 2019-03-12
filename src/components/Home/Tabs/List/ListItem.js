@@ -1,6 +1,5 @@
 import React from "react";
 import Moment from "react-moment";
-
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
@@ -31,7 +30,7 @@ class Todo extends React.Component {
   };
 
   render() {
-    const { classes, taskName, completed, completedAt, id } = this.props;
+    const { taskName, completed, completedAt, id } = this.props;
 
     return (
       <ListItem role={undefined} dense button>
@@ -41,6 +40,7 @@ class Todo extends React.Component {
           disableRipple
           color="primary"
           onClick={() => {
+            window.navigator.vibrate(200);
             this.handleToggle(id);
           }}
         />
