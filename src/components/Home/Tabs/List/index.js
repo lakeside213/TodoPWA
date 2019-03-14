@@ -7,7 +7,10 @@ import EmptyState from "../../../emptyState";
 import Divider from "@material-ui/core/Divider";
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    height: "100%",
+    overflow: "auto",
+    webkitOverflowScrolling: "touch"
   }
 });
 

@@ -91,7 +91,7 @@ class Home extends Component {
       );
     }
     return (
-      <div style={{ background: "#fafafa", height: "100%" }}>
+      <Fragment>
         <Header
           selectedList={selectedList}
           drawerToggler={this.drawerToggler}
@@ -128,7 +128,7 @@ class Home extends Component {
           message={toast.message}
           open={toast.open}
         />
-      </div>
+      </Fragment>
     );
   }
 }
