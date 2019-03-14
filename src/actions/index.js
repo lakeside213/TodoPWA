@@ -60,7 +60,7 @@ export const deleteTodo = id => {
       type: DELETE_TODO,
       id
     });
-    dispatch(openSnackbar("todo succesffully deleted"));
+    dispatch(openSnackbar("Todo successfully deleted"));
   };
 };
 

@@ -28,6 +28,11 @@ class Home extends Component {
       selectedTabIndex: 0
     };
   }
+  componentDidMount() {
+    if (this.props.user.lists.length > 0) {
+      this.setState({ selectedList: this.props.user.lists[0] });
+    }
+  }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):

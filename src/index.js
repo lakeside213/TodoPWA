@@ -3,11 +3,9 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "./store";
-import { createStore, applyMiddleware } from "redux";
 import LoadingView from "./components/loadingView";
 import App from "./App";
 import "./index.css";
-import reducers from "./reducers";
 import * as serviceWorker from "./serviceWorker";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
