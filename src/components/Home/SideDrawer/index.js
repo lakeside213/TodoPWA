@@ -1,5 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { deleteList } from "../../../actions";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
@@ -10,7 +12,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Settings from "@material-ui/icons/Settings";
 import Edit from "@material-ui/icons/Edit";
 import Add from "@material-ui/icons/Add";
-
+import RemoveCircle from "@material-ui/icons/RemoveCircle";
+import Cancel from "@material-ui/icons/Cancel";
 const styles = {
   list: {
     width: 250
@@ -41,6 +44,17 @@ const SideList = props => {
               }}
             >
               <ListItemText primary={text} />
+              {props.manageLists ? (
+                <ListItemIcon>
+                  <RemoveCircle
+                    onClick={() => {
+                      props.deleteList(text);
+                    }}
+                  />
+                </ListItemIcon>
+              ) : (
+                ""
+              )}
             </ListItem>
           ))
         ) : (
@@ -55,18 +69,27 @@ const SideList = props => {
       <Divider />
 
       <List>
-        <ListItem>
-          <ListItemIcon>
-            <Edit />
-          </ListItemIcon>
-          <ListItemText primary="Manage Lists" />
-        </ListItem>
-        <ListItem onClick={props.dialogToggler}>
-          <ListItemIcon>
-            <Add />
-          </ListItemIcon>
-          <ListItemText primary="Create a New List" />
-        </ListItem>
+        {props.lists.length > 0 ? (
+          <Fragment>
+            <ListItem onClick={props.manageListsToggler}>
+              <ListItemIcon>
+                {props.manageLists == false ? <Edit /> : <Cancel />}
+              </ListItemIcon>
+              <ListItemText
+                primary={props.manageLists == false ? "Manage Lists" : "Cancel"}
+              />
+            </ListItem>
+            <ListItem onClick={props.dialogToggler}>
+              <ListItemIcon>
+                <Add />
+              </ListItemIcon>
+              <ListItemText primary="Create a New List" />
+            </ListItem>
+          </Fragment>
+        ) : (
+          ""
+        )}
+
         <ListItem>
           <ListItemIcon>
             <Settings />
@@ -78,14 +101,25 @@ const SideList = props => {
   );
 };
 class Drawer extends React.Component {
+  state = {
+    manageLists: false
+  };
+  manageListsToggler = () => {
+    this.setState(prevState => {
+      return { manageLists: !prevState.manageLists };
+    });
+  };
+
   render() {
+    const { manageLists } = this.state;
     const {
       classes,
       isDrawerOpen,
       drawerToggler,
       lists,
       dialogToggler,
-      changeTab
+      changeTab,
+      deleteList
     } = this.props;
 
     return (
@@ -97,17 +131,15 @@ class Drawer extends React.Component {
           disableBackdropTransition={!iOS}
           disableDiscovery={iOS}
         >
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={drawerToggler}
-            onKeyDown={drawerToggler}
-          >
+          <div tabIndex={0} role="button" onKeyDown={drawerToggler}>
             <SideList
               classes={classes}
               lists={lists}
               dialogToggler={dialogToggler}
               changeTab={changeTab}
+              deleteList={deleteList}
+              manageLists={manageLists}
+              manageListsToggler={this.manageListsToggler}
             />
           </div>
         </SwipeableDrawer>
@@ -120,4 +152,7 @@ Drawer.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Drawer);
+export default connect(
+  null,
+  { deleteList }
+)(withStyles(styles)(Drawer));

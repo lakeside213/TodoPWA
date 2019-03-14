@@ -1,5 +1,6 @@
 import {
   CREATE_LIST,
+  DELETE_LIST,
   CREATE_TODO,
   FETCH_USER,
   DELETE_TODO,
@@ -15,6 +16,23 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state };
     case CREATE_LIST:
       return { ...state, lists: [...state.lists, action.name] };
+    case DELETE_LIST:
+      const listsCopy = [...state.lists];
+      const allTodos = [...state.todos];
+
+      const filteredTodos = allTodos.filter(todo => todo.list !== action.name);
+      const indexdelete = listsCopy.findIndex(function(list) {
+        return list === action.name;
+      });
+      return {
+        ...state,
+        lists: [
+          ...listsCopy.slice(0, indexdelete),
+          ...listsCopy.slice(indexdelete + 1)
+        ],
+        todos: [...filteredTodos]
+      };
+
     case CREATE_TODO:
       let index = state.todos.length;
       console.log(action);

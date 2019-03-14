@@ -2,6 +2,7 @@ import {
   CREATE_TODO,
   FETCH_USER,
   CREATE_LIST,
+  DELETE_LIST,
   TOGGLE_TODO,
   DELETE_TODO
 } from "../consts/types";
@@ -15,6 +16,10 @@ export const createTodo = (taskName, notes, dueDate, list) => ({
 });
 export const createList = name => ({
   type: CREATE_LIST,
+  name
+});
+export const deleteList = name => ({
+  type: DELETE_LIST,
   name
 });
 export const fetchUser = () => ({

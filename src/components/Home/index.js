@@ -20,6 +20,7 @@ class Home extends Component {
       isDrawerOpen: false,
       isDialogOpen: false,
       isCreateTodoOpen: false,
+
       selectedList: "Todos",
       selectedTabIndex: 0
     };
@@ -33,10 +34,15 @@ class Home extends Component {
     ) {
       this.setState({ selectedList: this.props.user.lists[0] });
     }
+    if (
+      this.props.user.lists !== prevProps.user.lists &&
+      this.props.user.lists.length === 0
+    ) {
+      this.setState({ selectedList: "Todos" });
+    }
   }
   changeTab = value => {
     let lists = this.props.user.lists;
-    console.log(this.state);
     this.setState({ selectedList: lists[value] });
     this.setState({ selectedTabIndex: value });
   };

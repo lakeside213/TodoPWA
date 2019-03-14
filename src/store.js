@@ -8,6 +8,7 @@ import rootReducer from "./reducers"; // the value from combineReducers
 const persistConfig = {
   key: "root",
   storage: storage,
+
   stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
 };
 
