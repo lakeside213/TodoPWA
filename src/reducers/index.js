@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 
 import user from "./userReducer";
+import snackbar from "./snackbarReducer";
 const rootReducer = combineReducers({
-  user
+  user,
+  snackbar
 });
 
 export default rootReducer;

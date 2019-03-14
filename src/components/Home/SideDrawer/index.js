@@ -73,10 +73,12 @@ const SideList = props => {
           <Fragment>
             <ListItem onClick={props.manageListsToggler}>
               <ListItemIcon>
-                {props.manageLists == false ? <Edit /> : <Cancel />}
+                {props.manageLists === false ? <Edit /> : <Cancel />}
               </ListItemIcon>
               <ListItemText
-                primary={props.manageLists == false ? "Manage Lists" : "Cancel"}
+                primary={
+                  props.manageLists === false ? "Manage Lists" : "Cancel"
+                }
               />
             </ListItem>
             <ListItem onClick={props.dialogToggler}>

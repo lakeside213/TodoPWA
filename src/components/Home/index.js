@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Header from "./Header";
 import Tabs from "./Tabs";
 import CreateList from "./CreateListDialog";
 import CreateTodo from "../CreateTodo";
 import SideDrawer from "./SideDrawer";
+import Snackbar from "../snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { openSnackbar, closeSnackbar } from "../../actions";
 
 const styles = theme => ({
   progress: {
@@ -71,7 +74,7 @@ class Home extends Component {
       selectedTabIndex,
       isCreateTodoOpen
     } = this.state;
-    let { user, classes } = this.props;
+    let { user, classes, closeSnackbar, toast } = this.props;
     let { lists, todos } = user;
 
     if (!user) {
@@ -114,9 +117,20 @@ class Home extends Component {
           isDialogOpen={isCreateTodoOpen}
           selectedList={selectedList}
         />
+        <Snackbar
+          closeSnackbar={closeSnackbar}
+          message={toast.message}
+          open={toast.open}
+        />
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Home);
+function mapStateToProps({ snackbar }) {
+  return { toast: snackbar.toast };
+}
+export default connect(
+  mapStateToProps,
+  { openSnackbar, closeSnackbar }
+)(withStyles(styles)(Home));

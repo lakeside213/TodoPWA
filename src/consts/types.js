@@ -5,3 +5,5 @@ export const UPDATE_TODO = "UPDATE_TODO";
 export const TOGGLE_TODO = "TOGGLE_TODO";
 export const CREATE_LIST = "CREATE_LIST";
 export const DELETE_LIST = "DELETE_LIST";
+export const OPEN_SNACKBAR = "OPEN_SNACKBAR";
+export const CLOSE_SNACKBAR = "CLOSE_SNACKBAR";
