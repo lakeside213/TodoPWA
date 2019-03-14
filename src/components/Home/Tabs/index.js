@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@material-ui/core/AppBar";
@@ -26,6 +27,20 @@ const styles = theme => ({
     position: "absolute",
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2
+  },
+  fabMoveUp: {
+    transform: "translate3d(0, -46px, 0)",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.easeOut
+    })
+  },
+  fabMoveDown: {
+    transform: "translate3d(0, 0, 0)",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp
+    })
   }
 });
 
@@ -51,9 +66,13 @@ class FullWidthTabs extends React.Component {
       todos,
       lists,
       dialogToggler,
-      selectedTabIndex
+      selectedTabIndex,
+      snackbarOpen
     } = this.props;
-
+    const fabClassName = classNames(
+      classes.fab,
+      snackbarOpen ? classes.fabMoveUp : classes.fabMoveDown
+    );
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -91,7 +110,7 @@ class FullWidthTabs extends React.Component {
           </SwipeableViews>
         </div>
         <Fab
-          className={classes.fab}
+          className={fabClassName}
           color="primary"
           onClick={() => {
             if (lists.length) {

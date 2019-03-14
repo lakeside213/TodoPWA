@@ -106,6 +106,7 @@ class Home extends Component {
           todos={todos}
           selectedTabIndex={selectedTabIndex}
           changeTab={this.changeTab}
+          snackbarOpen={toast.open}
           selectedList={selectedList}
         />
         <CreateList

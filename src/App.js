@@ -14,15 +14,15 @@ class App extends Component {
     // Detects if device is in standalone mode
     const isInStandaloneMode = () =>
       "standalone" in window.navigator && window.navigator.standalone;
-    if (isIos() && isInStandaloneMode()) {
+    if (isIos() && !isInStandaloneMode()) {
       this.props.openSnackbar(
         "Install this app on your device.Tap the share icon and then Add to homescreen "
       );
     }
 
-    if (!navigator.onLine) {
+    window.addEventListener("offline", function(e) {
       this.props.openSnackbar("Not connected to the internet");
-    }
+    });
   }
 
   render() {

@@ -9,6 +9,9 @@ import CloseIcon from "@material-ui/icons/Close";
 const styles = theme => ({
   close: {
     padding: theme.spacing.unit / 2
+  },
+  snackbar: {
+    position: "absolute"
   }
 });
 
@@ -29,6 +32,7 @@ class SimpleSnackbar extends React.Component {
             vertical: "bottom",
             horizontal: "left"
           }}
+          className={classes.snackbar}
           open={open}
           autoHideDuration={4000}
           onClose={this.handleClose}
