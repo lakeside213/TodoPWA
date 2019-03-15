@@ -8,7 +8,7 @@ import { toggleTodo, deleteTodo } from "../../../actions";
 import Details from "./details";
 const styles = {
   drawer: {
-    width: 500
+    borderRadius: "10px"
   },
   list: {
     width: 250
@@ -27,7 +27,12 @@ class TemporaryDrawer extends React.Component {
     const { classes, open, viewToggler, todo, toggleTodo } = this.props;
 
     return (
-      <Drawer anchor="bottom" open={open} onClose={viewToggler}>
+      <Drawer
+        anchor="bottom"
+        open={open}
+        onClose={viewToggler}
+        className={classes.drawer}
+      >
         <div tabIndex={0} role="button" onClick={viewToggler}>
           <Details
             taskName={todo.taskName}
