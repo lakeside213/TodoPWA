@@ -6,6 +6,7 @@ import Tabs from "./Tabs";
 import CreateList from "./CreateListDialog";
 import CreateTodo from "../CreateTodo";
 import SideDrawer from "./SideDrawer";
+import ViewTodo from "./ViewDrawer";
 import Snackbar from "../snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { openSnackbar, closeSnackbar } from "../../actions";
@@ -23,7 +24,8 @@ class Home extends Component {
       isDrawerOpen: false,
       isDialogOpen: false,
       isCreateTodoOpen: false,
-
+      isViewDrawerOpen: false,
+      selectedTodo: {},
       selectedList: "Todos",
       selectedTabIndex: 0
     };
@@ -59,7 +61,14 @@ class Home extends Component {
       return { isDrawerOpen: !prevState.isDrawerOpen };
     });
   };
-
+  viewDrawerToggler = (todo = {}) => {
+    this.setState(prevState => {
+      return {
+        isViewDrawerOpen: !prevState.isViewDrawerOpen,
+        selectedTodo: todo
+      };
+    });
+  };
   dialogToggler = () => {
     this.setState(prevState => {
       return { isDialogOpen: !prevState.isDialogOpen };
@@ -77,7 +86,9 @@ class Home extends Component {
       isDialogOpen,
       selectedList,
       selectedTabIndex,
-      isCreateTodoOpen
+      isCreateTodoOpen,
+      isViewDrawerOpen,
+      selectedTodo
     } = this.state;
     let { user, classes, closeSnackbar, toast } = this.props;
     let { lists, todos } = user;
@@ -107,12 +118,14 @@ class Home extends Component {
         <Tabs
           dialogToggler={this.dialogToggler}
           createToggler={this.createTodoToggler}
+          viewToggler={this.viewDrawerToggler}
           lists={lists}
           todos={todos}
           selectedTabIndex={selectedTabIndex}
           changeTab={this.changeTab}
           snackbarOpen={toast.open}
           selectedList={selectedList}
+          viewOpen={isViewDrawerOpen}
         />
         <CreateList
           dialogToggler={this.dialogToggler}
@@ -122,6 +135,11 @@ class Home extends Component {
           dialogToggler={this.createTodoToggler}
           isDialogOpen={isCreateTodoOpen}
           selectedList={selectedList}
+        />
+        <ViewTodo
+          todo={selectedTodo}
+          open={isViewDrawerOpen}
+          viewToggler={this.viewDrawerToggler}
         />
         <Snackbar
           closeSnackbar={closeSnackbar}

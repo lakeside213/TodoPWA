@@ -9,10 +9,19 @@ import Tab from "@material-ui/core/Tab";
 import Fab from "@material-ui/core/Fab";
 import Create from "@material-ui/icons/Create";
 import List from "./List";
+import Badge from "@material-ui/core/Badge";
 import EmptyState from "../../emptyState";
 
-function TabContainer({ dir, todos, createToggler }) {
-  return <List dir={dir} todos={todos} createToggler={createToggler} />;
+function TabContainer({ dir, todos, createToggler, viewToggler, viewOpen }) {
+  return (
+    <List
+      dir={dir}
+      todos={todos}
+      createToggler={createToggler}
+      viewToggler={viewToggler}
+      viewOpen={viewOpen}
+    />
+  );
 }
 
 TabContainer.propTypes = {
@@ -22,6 +31,9 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper
+  },
+  padding: {
+    padding: `0 ${theme.spacing.unit * 2}px`
   },
   fab: {
     position: "absolute",
@@ -67,18 +79,38 @@ class FullWidthTabs extends React.Component {
       lists,
       dialogToggler,
       selectedTabIndex,
-      snackbarOpen
+      snackbarOpen,
+      viewToggler,
+      viewOpen
     } = this.props;
     const fabClassName = classNames(
       classes.fab,
       snackbarOpen ? classes.fabMoveUp : classes.fabMoveDown
     );
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs value={selectedTabIndex} onChange={this.handleChange}>
             {lists.map((listName, index) => (
-              <Tab label={listName} key={index} value={index} />
+              <Tab
+                label={
+                  <Badge
+                    className={classes.padding}
+                    color="secondary"
+                    badgeContent={
+                      todos.filter(
+                        todo =>
+                          todo.list === listName && todo.completed !== true
+                      ).length
+                    }
+                  >
+                    {listName}
+                  </Badge>
+                }
+                key={index}
+                value={index}
+              />
             ))}
           </Tabs>
         </AppBar>
@@ -97,6 +129,8 @@ class FullWidthTabs extends React.Component {
                   })}
                   key={index}
                   createToggler={createToggler}
+                  viewToggler={viewToggler}
+                  viewOpen={viewOpen}
                 />
               ))
             ) : (

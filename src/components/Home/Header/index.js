@@ -59,7 +59,7 @@ class Header extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              {selectedList}
+              {selectedList.toUpperCase()}
             </Typography>
 
             <div>

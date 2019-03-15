@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "./ListItem";
 import EmptyState from "../../../emptyState";
 import Divider from "@material-ui/core/Divider";
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -16,7 +17,7 @@ const styles = theme => ({
 
 class TodoLists extends React.Component {
   render() {
-    const { classes, todos, createToggler } = this.props;
+    const { classes, todos, createToggler, viewToggler, viewOpen } = this.props;
 
     if (todos.length < 1) {
       return (
@@ -33,13 +34,11 @@ class TodoLists extends React.Component {
     return (
       <List className={classes.root}>
         {todos.map((todo, index) => (
-          <Fragment>
+          <Fragment key={index}>
             <ListItem
-              taskName={todo.taskName}
-              completed={todo.completed}
-              completedAt={todo.completedAt}
-              id={todo.id}
-              key={index}
+              todo={todo}
+              viewToggler={viewToggler}
+              viewOpen={viewOpen}
             />
 
             <Divider />
