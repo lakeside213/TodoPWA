@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/TodoPWA/static/css/main.664f81b6.chunk.css"
   },
   {
-    "revision": "c75fc75d6170c8c6b002526c7b4c9c97",
+    "revision": "1a7d5df902ef7a7dd92a5cf34cb52f68",
     "url": "/TodoPWA/index.html"
   }
 ];
