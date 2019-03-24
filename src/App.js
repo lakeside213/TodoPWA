@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { askForPermission } from "./Notifications";
 import { fetchUser, openSnackbar } from "./actions";
 import Home from "./components/Home";
 
@@ -23,6 +24,8 @@ class App extends Component {
     window.addEventListener("offline", function(e) {
       this.props.openSnackbar("Not connected to the internet");
     });
+
+    askForPermission();
   }
 
   render() {

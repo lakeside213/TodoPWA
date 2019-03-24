@@ -5,15 +5,54 @@ import {
   FETCH_USER,
   DELETE_TODO,
   UPDATE_TODO,
-  TOGGLE_TODO
+  TOGGLE_TODO,
+  MONITOR_TODOS
 } from "../consts/types";
+import { createNotification } from "../Notifications";
+import Moment from "moment";
+import { store } from "../store";
 
+function isSameDayAndMonth(m1, m2) {
+  return m1.date() === m2.date() && m1.month() === m2.month();
+}
 const INITIAL_STATE = { lists: [], todos: [], settings: {} };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_USER:
       return { ...state };
+    // case MONITOR_TODOS:
+    //   state.todos.map(todo => {
+    //     if (
+    //       isSameDayAndMonth(Moment(Date.now()), Moment(todo.dueDate)) &&
+    //       todo.notified === false &&
+    //       todo.completed === false
+    //     ) {
+    //       let notificationTitle = `${todo.taskName} is due today`;
+    //       let notificationBody = todo.notes;
+    //       todo.notified = true;
+    //       createNotification(notificationTitle, notificationBody);
+    //     }
+    //   });
+    //   return state;
+    case MONITOR_TODOS:
+      return Object.assign({}, state, {
+        todos: state.todos.map(todo => {
+          if (
+            isSameDayAndMonth(Moment(Date.now()), Moment(todo.dueDate)) &&
+            todo.notified === false &&
+            todo.completed === false
+          ) {
+            let notificationTitle = `${todo.list}`;
+            let notificationBody = `${todo.taskName} is due today`;
+            createNotification(notificationTitle, notificationBody);
+            return Object.assign({}, todo, {
+              notified: true
+            });
+          }
+          return todo;
+        })
+      });
     case CREATE_LIST:
       return { ...state, lists: [...state.lists, action.name] };
     case DELETE_LIST:
@@ -35,7 +74,6 @@ export default function(state = INITIAL_STATE, action) {
 
     case CREATE_TODO:
       let index = state.todos.length;
-      console.log(action);
       return {
         ...state,
         todos: [
@@ -47,7 +85,8 @@ export default function(state = INITIAL_STATE, action) {
             list: action.list,
             notes: action.notes,
             completed: false,
-            completedAt: ""
+            completedAt: "",
+            notified: false
           }
         ]
       };
@@ -87,3 +126,9 @@ export default function(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+setInterval(function() {
+  store.dispatch({
+    type: MONITOR_TODOS
+  });
+}, 5000);

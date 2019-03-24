@@ -6,7 +6,8 @@ import {
   TOGGLE_TODO,
   DELETE_TODO,
   OPEN_SNACKBAR,
-  CLOSE_SNACKBAR
+  CLOSE_SNACKBAR,
+  MONITOR_TODOS
 } from "../consts/types";
 
 export const createTodo = (taskName, notes, dueDate, list) => {

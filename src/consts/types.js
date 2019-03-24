@@ -7,3 +7,4 @@ export const CREATE_LIST = "CREATE_LIST";
 export const DELETE_LIST = "DELETE_LIST";
 export const OPEN_SNACKBAR = "OPEN_SNACKBAR";
 export const CLOSE_SNACKBAR = "CLOSE_SNACKBAR";
+export const MONITOR_TODOS = "MONITOR_TODOS";

@@ -61,7 +61,6 @@ class CreateTodo extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    console.log(this.state);
     this.setState({
       [name]: value
     });
