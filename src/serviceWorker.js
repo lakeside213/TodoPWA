@@ -31,7 +31,7 @@ export function register(config) {
       return;
     }
     const cacheName = "shell-content";
-    const filesToCache = ["/assets/js/inobounce.min.js", "/"];
+    const filesToCache = ["%PUBLIC_URL%/assets/js/inobounce.min.js", "/"];
     window.addEventListener("install", function(e) {
       console.log("[ServiceWorker] Install");
       e.waitUntil(

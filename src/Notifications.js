@@ -24,12 +24,12 @@ function createNotification(title, message) {
   if (Notification.permission === "granted") {
     // If it's okay let's create a notification
 
-    var img = "/assets/icons/apple-touch-icon.png";
+    var img = "%PUBLIC_URL%/assets/icons/apple-touch-icon.png";
     var text = message;
     var notification = new Notification(title, {
       body: text,
       icon: img,
-      badge: "/assets/icons/android-chrome-512x512.png",
+      badge: "%PUBLIC_URL%/assets/icons/android-chrome-512x512.png",
       timestamp: Date.now()
       // actions: [
       //   {
@@ -60,7 +60,7 @@ function createNotification(title, message) {
 
       // If the user is okay, let's create a notification
       if (permission === "granted") {
-        var img = "/assets/icons/apple-touch-icon.png";
+        var img = "%PUBLIC_URL%/assets/icons/apple-touch-icon.png";
         var text = message;
         var notification = new Notification("Todolist", {
           body: text,
